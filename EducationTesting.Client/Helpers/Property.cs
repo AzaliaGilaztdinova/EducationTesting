@@ -7,7 +7,7 @@ namespace EducationTesting.Client.Helpers
     /// Базовый класс для обновляемых свойств, реализующих INotifyPropertyChanged
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Property<T> : BindableBase
+    public class Property<T> : BindableBase, IProperty<T>
     {
         private T _value;
 

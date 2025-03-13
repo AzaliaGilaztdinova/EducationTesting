@@ -19,6 +19,9 @@ namespace EducationTesting.Client.DependencyInjection
         public static IServiceCollection AddServices(this IServiceCollection services)
             => services
                 .AddSingleton<IDbConnectionProvider, DbConnectionProvider>()
+                .AddSingleton<IGuidProvider, GuidProvider>()
+                .AddSingleton<IMomentProvider, MomentProvider>()
+                .AddSingleton<IMessageBoxProvider, MessageBoxProvider>()
                 .AddTransient(typeof(Lazy<>), typeof(Lazier<>))
                 .AddTransient<IUsersService, UsersService>()
                 .AddTransient<IStudentsService, StudentsService>()

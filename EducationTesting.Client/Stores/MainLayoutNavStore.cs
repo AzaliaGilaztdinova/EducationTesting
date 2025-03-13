@@ -4,6 +4,6 @@ namespace EducationTesting.Client.Stores
 {
     public class MainLayoutNavStore : IMainLayoutNavStore
     {
-        public Property<object> CurrentVmProp { get; } = new Property<object>();
+        public IProperty<object> CurrentVmProp { get; } = new Property<object>();
     }
 }

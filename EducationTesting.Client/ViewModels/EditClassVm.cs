@@ -9,9 +9,14 @@ namespace EducationTesting.Client.ViewModels
     public class EditClassVm : EditItemVm<Class>
     {
         private readonly IClassesService _service;
+        private readonly IGuidProvider _guidProvider;
 
-        public EditClassVm(Class item, IClassesService service, Action goBack) : base(item, goBack) =>
+        public EditClassVm(Class item, IClassesService service, Action goBack, IGuidProvider guidProvider) : base(item, goBack)
+        {
             _service = service;
+            _guidProvider = guidProvider;
+        }
+
         private bool Validate()
         {
             ErrorMessageProp.Value = null;
@@ -33,7 +38,7 @@ namespace EducationTesting.Client.ViewModels
 
                 if (isNew)
                 {
-                    Item.Id = Guid.NewGuid().ToString();
+                    Item.Id = _guidProvider.NewGuid();
                     _service.Create(Item);
                     MessageBox.Show("Класс успешно создан!", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);

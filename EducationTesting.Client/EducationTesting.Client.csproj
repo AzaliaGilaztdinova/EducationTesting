@@ -188,9 +188,11 @@
     <Compile Include="DependencyInjection\Services.cs" />
     <Compile Include="DependencyInjection\Stores.cs" />
     <Compile Include="DependencyInjection\ViewModels.cs" />
+    <Compile Include="GuidProvider.cs" />
     <Compile Include="Helpers\AnsweredOptionTemplateSelector.cs" />
     <Compile Include="Helpers\AnswerOptionTemplateSelector.cs" />
     <Compile Include="Helpers\InvertedBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\IProperty.cs" />
     <Compile Include="Helpers\Lazier.cs" />
     <Compile Include="Helpers\Property.cs" />
     <Compile Include="Helpers\QuestionsTypesStrings.cs" />
@@ -199,6 +201,10 @@
     <Compile Include="Helpers\RolesString.cs" />
     <Compile Include="Helpers\RoleToVisibilityConverter.cs" />
     <Compile Include="Helpers\StringToVisibilityConverter.cs" />
+    <Compile Include="IGuidProvider.cs" />
+    <Compile Include="IMessageBoxProvider.cs" />
+    <Compile Include="IMomentProvider.cs" />
+    <Compile Include="MessageBoxProvider.cs" />
     <Compile Include="Models\Classes\Class.cs" />
     <Compile Include="Models\Disciplines\Discipline.cs" />
     <Compile Include="Models\Lectures\Lecture.cs" />
@@ -222,6 +228,7 @@
     <Compile Include="Models\Users\UpdatePasswordCommand.cs" />
     <Compile Include="Models\Users\User.cs" />
     <Compile Include="Models\Users\ValidateOldPasswordCommand.cs" />
+    <Compile Include="MomentProvider.cs" />
     <Compile Include="Repositories\ClassesRepository.cs" />
     <Compile Include="Repositories\DisciplinesRepository.cs" />
     <Compile Include="Repositories\IClassesRepository.cs" />
@@ -280,6 +287,8 @@
     <Compile Include="ViewModels\EditSubjectVm.cs" />
     <Compile Include="ViewModels\EditTeacherVm.cs" />
     <Compile Include="ViewModels\EditTestVm.cs" />
+    <Compile Include="ViewModels\ITestPerformVm.cs" />
+    <Compile Include="ViewModels\ITestsVm.cs" />
     <Compile Include="ViewModels\LecturesVm.cs" />
     <Compile Include="ViewModels\LoginVm.cs" />
     <Compile Include="ViewModels\MainLayoutVm.cs" />

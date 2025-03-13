@@ -16,7 +16,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly Lazy<DisciplinesVm> _disciplinesVmLazy;
         private readonly Lazy<SubjectsVm> _subjectsVmLazy;
-        private readonly Lazy<TestsVm> _testsVmLazy;
+        private readonly Lazy<ITestsVm> _testsVmLazy;
         private readonly Lazy<TestResultsVm> _testResultsVmLazy;
 
         public IEnumerable<TestResult> Results =>
@@ -36,7 +36,7 @@ namespace EducationTesting.Client.ViewModels
 
         public TestResultsVm(ITestsStore store, IAuthStore authStore, ITestsResultsService resultsService,
             IMainLayoutNavStore mainLayoutNavStore, Lazy<DisciplinesVm> disciplinesVmLazy,
-            Lazy<SubjectsVm> subjectsVmLazy, Lazy<TestsVm> testsVmLazy, Lazy<TestResultsVm> testResultsVmLazy)
+            Lazy<SubjectsVm> subjectsVmLazy, Lazy<ITestsVm> testsVmLazy, Lazy<TestResultsVm> testResultsVmLazy)
         {
             _store = store;
             _authStore = authStore;

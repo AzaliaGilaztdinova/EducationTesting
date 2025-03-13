@@ -17,6 +17,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly Lazy<StudentsVm> _studentsVmLazy;
         private readonly Lazy<IClassesService> _classesVmLazy;
+        private readonly IGuidProvider _guidProvider;
         private string _searchText;
 
         public string SearchText
@@ -42,12 +43,13 @@ namespace EducationTesting.Client.ViewModels
         public ICommand DeleteCommand { get; }
 
         public StudentsVm(IStudentsService service, IMainLayoutNavStore mainLayoutNavStore,
-            Lazy<StudentsVm> studentsVmLazy, Lazy<IClassesService> classesVmLazy)
+            Lazy<StudentsVm> studentsVmLazy, Lazy<IClassesService> classesVmLazy, IGuidProvider guidProvider)
         {
             _service = service;
             _mainLayoutNavStore = mainLayoutNavStore;
             _studentsVmLazy = studentsVmLazy;
             _classesVmLazy = classesVmLazy;
+            _guidProvider = guidProvider;
             AddCommand = new DelegateCommand(Add);
             GoToCommand = new DelegateCommand<string>(GoTo);
             DeleteCommand = new DelegateCommand<Student>(Delete);
@@ -55,14 +57,14 @@ namespace EducationTesting.Client.ViewModels
 
         private void Add() => _mainLayoutNavStore.CurrentVmProp.Value =
             new EditStudentVm(new Student(), _service, _classesVmLazy.Value,
-                () => _mainLayoutNavStore.CurrentVmProp.Value = _studentsVmLazy.Value);
+                () => _mainLayoutNavStore.CurrentVmProp.Value = _studentsVmLazy.Value, _guidProvider);
 
         private void GoTo(string id)
         {
             var item = _service.Get(id);
             _mainLayoutNavStore.CurrentVmProp.Value =
                 new EditStudentVm(item, _service, _classesVmLazy.Value,
-                    () => _mainLayoutNavStore.CurrentVmProp.Value = _studentsVmLazy.Value);
+                    () => _mainLayoutNavStore.CurrentVmProp.Value = _studentsVmLazy.Value, _guidProvider);
         }
 
         private void Delete(Student item)

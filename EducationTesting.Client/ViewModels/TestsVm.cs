@@ -12,17 +12,18 @@ using Prism.Mvvm;
 
 namespace EducationTesting.Client.ViewModels
 {
-    public class TestsVm : BindableBase
+    public class TestsVm : BindableBase, ITestsVm
     {
         private readonly ITestsStore _store;
         private readonly ITestsService _service;
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly Lazy<SubjectsVm> _subjectsVmLazy;
-        private readonly Lazy<TestsVm> _testsVmLazy;
+        private readonly Lazy<ITestsVm> _testsVmLazy;
         private readonly IAuthStore _authStore;
-        private readonly Lazy<TestPerformVm> _testPerformLazy;
+        private readonly Lazy<ITestPerformVm> _testPerformLazy;
         private readonly Lazy<DisciplinesVm> _disciplinesVmLazy;
         private readonly Lazy<TestResultsVm> _testResultsVmLazy;
+        private readonly IGuidProvider _guidProvider;
         private string _searchText;
 
         public string SearchText
@@ -54,9 +55,9 @@ namespace EducationTesting.Client.ViewModels
         public ICommand GoToPerformCommand { get; }
 
         public TestsVm(ITestsStore store, ITestsService service, IMainLayoutNavStore mainLayoutNavStore,
-            Lazy<SubjectsVm> subjectsVmLazy, Lazy<TestsVm> testsVmLazy, IAuthStore authStore,
-            Lazy<TestPerformVm> testPerformLazy, Lazy<DisciplinesVm> disciplinesVmLazy,
-            Lazy<TestResultsVm> testResultsVmLazy)
+            Lazy<SubjectsVm> subjectsVmLazy, Lazy<ITestsVm> testsVmLazy, IAuthStore authStore,
+            Lazy<ITestPerformVm> testPerformLazy, Lazy<DisciplinesVm> disciplinesVmLazy,
+            Lazy<TestResultsVm> testResultsVmLazy, IGuidProvider guidProvider)
         {
             _store = store;
             _service = service;
@@ -67,6 +68,7 @@ namespace EducationTesting.Client.ViewModels
             _testPerformLazy = testPerformLazy;
             _disciplinesVmLazy = disciplinesVmLazy;
             _testResultsVmLazy = testResultsVmLazy;
+            _guidProvider = guidProvider;
             GoBackCommand = new DelegateCommand(GoBack);
             GoBackDisciplinesCommand = new DelegateCommand(GoBackDisciplines);
             GoToResultsCommand = new DelegateCommand<Test>(GoToResults);
@@ -77,10 +79,10 @@ namespace EducationTesting.Client.ViewModels
         }
 
         private void Add() => _mainLayoutNavStore.CurrentVmProp.Value = new EditTestVm(new Test(), _service, _store,
-            () => _mainLayoutNavStore.CurrentVmProp.Value = _testsVmLazy.Value, _authStore);
+            () => _mainLayoutNavStore.CurrentVmProp.Value = _testsVmLazy.Value, _authStore, _guidProvider);
 
         private void GoTo(string id) => _mainLayoutNavStore.CurrentVmProp.Value = new EditTestVm(_service.Get(id),
-            _service, _store, () => _mainLayoutNavStore.CurrentVmProp.Value = _testsVmLazy.Value, _authStore);
+            _service, _store, () => _mainLayoutNavStore.CurrentVmProp.Value = _testsVmLazy.Value, _authStore, _guidProvider);
 
         private void GoToPerform(Test item)
         {
@@ -130,7 +132,7 @@ namespace EducationTesting.Client.ViewModels
 
         private void GoBackDisciplines() => _mainLayoutNavStore.CurrentVmProp.Value = _disciplinesVmLazy.Value;
 
-        public void GoToResults(Test item)
+        private void GoToResults(Test item)
         {
             _store.SelectedTest = item;
             _mainLayoutNavStore.CurrentVmProp.Value = _testResultsVmLazy.Value;

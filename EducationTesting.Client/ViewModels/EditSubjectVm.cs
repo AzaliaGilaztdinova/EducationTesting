@@ -9,9 +9,13 @@ namespace EducationTesting.Client.ViewModels
     public class EditSubjectVm : EditItemVm<Subject>
     {
         private readonly ISubjectsService _service;
+        private readonly IGuidProvider _guidProvider;
 
-        public EditSubjectVm(Subject item, ISubjectsService service, Action goBack) : base(item, goBack) =>
+        public EditSubjectVm(Subject item, ISubjectsService service, Action goBack, IGuidProvider guidProvider) : base(item, goBack)
+        {
             _service = service;
+            _guidProvider = guidProvider;
+        }
 
         protected override void Save()
         {
@@ -23,7 +27,7 @@ namespace EducationTesting.Client.ViewModels
 
                 if (isNew)
                 {
-                    Item.Id = Guid.NewGuid().ToString();
+                    Item.Id = _guidProvider.NewGuid();
                     _service.Create(Item);
                     MessageBox.Show("Тема успешно создана!", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);

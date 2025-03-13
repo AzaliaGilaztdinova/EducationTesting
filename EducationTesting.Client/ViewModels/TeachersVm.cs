@@ -16,6 +16,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly ITeachersService _service;
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly Lazy<TeachersVm> _teachersVmLazy;
+        private readonly IGuidProvider _guidProvider;
         private string _searchText;
 
         public string SearchText
@@ -40,11 +41,12 @@ namespace EducationTesting.Client.ViewModels
         public ICommand DeleteCommand { get; }
 
         public TeachersVm(ITeachersService service, IMainLayoutNavStore mainLayoutNavStore,
-            Lazy<TeachersVm> teachersVmLazy)
+            Lazy<TeachersVm> teachersVmLazy, IGuidProvider guidProvider)
         {
             _service = service;
             _mainLayoutNavStore = mainLayoutNavStore;
             _teachersVmLazy = teachersVmLazy;
+            _guidProvider = guidProvider;
             AddCommand = new DelegateCommand(Add);
             GoToCommand = new DelegateCommand<string>(GoTo);
             DeleteCommand = new DelegateCommand<Teacher>(Delete);
@@ -52,14 +54,14 @@ namespace EducationTesting.Client.ViewModels
 
         private void Add() => _mainLayoutNavStore.CurrentVmProp.Value =
             new EditTeacherVm(new Teacher(), _service,
-                () => _mainLayoutNavStore.CurrentVmProp.Value = _teachersVmLazy.Value);
+                () => _mainLayoutNavStore.CurrentVmProp.Value = _teachersVmLazy.Value, _guidProvider);
 
         private void GoTo(string id)
         {
             var item = _service.Get(id);
             _mainLayoutNavStore.CurrentVmProp.Value =
                 new EditTeacherVm(item, _service,
-                    () => _mainLayoutNavStore.CurrentVmProp.Value = _teachersVmLazy.Value);
+                    () => _mainLayoutNavStore.CurrentVmProp.Value = _teachersVmLazy.Value, _guidProvider);
         }
 
         private void Delete(Teacher item)

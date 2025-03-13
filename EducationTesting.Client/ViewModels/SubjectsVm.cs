@@ -17,9 +17,10 @@ namespace EducationTesting.Client.ViewModels
         private readonly ISubjectsStore _subjectsStore;
         private readonly ISubjectsService _service;
         private readonly ITestsStore _testsStore;
-        private readonly Lazy<TestsVm> _testsVmLazy;
+        private readonly Lazy<ITestsVm> _testsVmLazy;
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly IAuthStore _authStore;
+        private readonly IGuidProvider _guidProvider;
         private readonly Lazy<SubjectsVm> _subjectsVmLazy;
         private readonly Lazy<DisciplinesVm> _disciplinesVmLazy;
         private string _searchText;
@@ -50,9 +51,9 @@ namespace EducationTesting.Client.ViewModels
         public ICommand GoToTestsCommand { get; }
 
         public SubjectsVm(ISubjectsStore subjectsStore, ISubjectsService service, ITestsStore testsStore,
-            Lazy<TestsVm> testsVmLazy,
+            Lazy<ITestsVm> testsVmLazy,
             Lazy<SubjectsVm> subjectsVmLazy, Lazy<DisciplinesVm> disciplinesVmLazy,
-            IMainLayoutNavStore mainLayoutNavStore, IAuthStore authStore)
+            IMainLayoutNavStore mainLayoutNavStore, IAuthStore authStore, IGuidProvider guidProvider)
         {
             _subjectsStore = subjectsStore;
             _service = service;
@@ -62,6 +63,7 @@ namespace EducationTesting.Client.ViewModels
             _disciplinesVmLazy = disciplinesVmLazy;
             _mainLayoutNavStore = mainLayoutNavStore;
             _authStore = authStore;
+            _guidProvider = guidProvider;
             AddCommand = new DelegateCommand(Add);
             GoToCommand = new DelegateCommand<string>(GoTo);
             DeleteCommand = new DelegateCommand<Subject>(Delete);
@@ -71,14 +73,14 @@ namespace EducationTesting.Client.ViewModels
 
         private void Add() => _mainLayoutNavStore.CurrentVmProp.Value =
             new EditSubjectVm(new Subject { DisciplineId = _subjectsStore.SelectedDiscipline.Id }, _service,
-                () => _mainLayoutNavStore.CurrentVmProp.Value = _subjectsVmLazy.Value);
+                () => _mainLayoutNavStore.CurrentVmProp.Value = _subjectsVmLazy.Value, _guidProvider);
 
         private void GoTo(string id)
         {
             var item = _service.Get(id);
             _mainLayoutNavStore.CurrentVmProp.Value =
                 new EditSubjectVm(item, _service,
-                    () => _mainLayoutNavStore.CurrentVmProp.Value = _subjectsVmLazy.Value);
+                    () => _mainLayoutNavStore.CurrentVmProp.Value = _subjectsVmLazy.Value, _guidProvider);
         }
 
         private void Delete(Subject item)

@@ -15,6 +15,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly ITestsService _testsService;
         private readonly ITestsStore _store;
         private readonly IAuthStore _authStore;
+        private readonly IGuidProvider _guidProvider;
 
         public ICommand AddQuestionCommand { get; }
         public ICommand AddAnswerOptionCommand { get; }
@@ -22,11 +23,12 @@ namespace EducationTesting.Client.ViewModels
         public ICommand DeleteAnswerOptionCommand { get; }
 
         public EditTestVm(Test item, ITestsService testsService, ITestsStore store, Action goBack,
-            IAuthStore authStore) : base(item, goBack)
+            IAuthStore authStore, IGuidProvider guidProvider) : base(item, goBack)
         {
             _testsService = testsService;
             _store = store;
             _authStore = authStore;
+            _guidProvider = guidProvider;
             AddQuestionCommand = new DelegateCommand(AddQuestion);
             AddAnswerOptionCommand = new DelegateCommand<Question>(AddAnswerOption);
             DeleteQuestionCommand = new DelegateCommand<Question>(DeleteQuestion);
@@ -47,7 +49,7 @@ namespace EducationTesting.Client.ViewModels
                 if (isNew)
                 {
                     // Создание нового теста
-                    Item.Id = Guid.NewGuid().ToString();
+                    Item.Id = _guidProvider.NewGuid();
                     Item.CreatedAt = DateTime.Now;
 
                     foreach (var question in Item.Questions)
@@ -89,7 +91,7 @@ namespace EducationTesting.Client.ViewModels
         {
             var question = new Question
             {
-                Id = Guid.NewGuid().ToString()
+                Id = _guidProvider.NewGuid()
             };
             Item.Questions = Item.Questions.Append(question);
             RaisePropertyChanged(nameof(Item));
@@ -107,7 +109,7 @@ namespace EducationTesting.Client.ViewModels
 
             options.Add(new AnswerOption
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = _guidProvider.NewGuid(),
                 QuestionId = item.Id,
             });
         }

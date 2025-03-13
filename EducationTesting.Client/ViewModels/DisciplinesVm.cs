@@ -20,6 +20,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly ISubjectsStore _subjectsStore;
         private readonly Lazy<SubjectsVm> _subjectsVmLazy;
         private readonly IAuthStore _authStore;
+        private readonly IGuidProvider _guidProvider;
         private string _searchText;
 
         public string SearchText
@@ -47,7 +48,7 @@ namespace EducationTesting.Client.ViewModels
         public DisciplinesVm(IDisciplinesService service,
             IMainLayoutNavStore mainLayoutNavStore,
             Lazy<DisciplinesVm> disciplinesVmLazy, ISubjectsStore subjectsStore, Lazy<SubjectsVm> subjectsVmLazy,
-            IAuthStore authStore)
+            IAuthStore authStore, IGuidProvider guidProvider)
         {
             _service = service;
             _mainLayoutNavStore = mainLayoutNavStore;
@@ -55,6 +56,7 @@ namespace EducationTesting.Client.ViewModels
             _subjectsStore = subjectsStore;
             _subjectsVmLazy = subjectsVmLazy;
             _authStore = authStore;
+            _guidProvider = guidProvider;
             AddCommand = new DelegateCommand(Add);
             GoToCommand = new DelegateCommand<string>(GoTo);
             DeleteCommand = new DelegateCommand<Discipline>(Delete);
@@ -63,14 +65,14 @@ namespace EducationTesting.Client.ViewModels
 
         private void Add() => _mainLayoutNavStore.CurrentVmProp.Value =
             new EditDisciplineVm(new Discipline(), _service,
-                () => _mainLayoutNavStore.CurrentVmProp.Value = _disciplinesVmLazy.Value);
+                () => _mainLayoutNavStore.CurrentVmProp.Value = _disciplinesVmLazy.Value, _guidProvider);
 
         private void GoTo(string id)
         {
             var item = _service.Get(id);
             _mainLayoutNavStore.CurrentVmProp.Value =
                 new EditDisciplineVm(item, _service,
-                    () => _mainLayoutNavStore.CurrentVmProp.Value = _disciplinesVmLazy.Value);
+                    () => _mainLayoutNavStore.CurrentVmProp.Value = _disciplinesVmLazy.Value, _guidProvider);
         }
 
         private void Delete(Discipline item)

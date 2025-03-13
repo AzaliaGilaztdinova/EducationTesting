@@ -10,11 +10,14 @@ using Prism.Commands;
 
 namespace EducationTesting.Client.ViewModels
 {
-    public class TestPerformVm
+    public class TestPerformVm : ITestPerformVm
     {
         private readonly ITestsResultsService _resultsService;
         private readonly IMainLayoutNavStore _navStore;
-        private readonly Lazy<TestsVm> _testsVmLazy;
+        private readonly Lazy<ITestsVm> _testsVmLazy;
+        private readonly IGuidProvider _guidProvider;
+        private readonly IMomentProvider _momentProvider;
+        private readonly IMessageBoxProvider _messageBoxProvider;
         private readonly TestResult _result;
 
         public Test Item { get; }
@@ -23,19 +26,23 @@ namespace EducationTesting.Client.ViewModels
         public ICommand CancelCommand { get; }
 
         public TestPerformVm(ITestsStore store, ITestsResultsService resultsService,
-            IAuthStore authStore, IMainLayoutNavStore navStore, Lazy<TestsVm> testsVmLazy)
+            IAuthStore authStore, IMainLayoutNavStore navStore, Lazy<ITestsVm> testsVmLazy, IGuidProvider guidProvider,
+            IMomentProvider momentProvider, IMessageBoxProvider messageBoxProvider)
         {
             _resultsService = resultsService;
             _navStore = navStore;
             _testsVmLazy = testsVmLazy;
+            _guidProvider = guidProvider;
+            _momentProvider = momentProvider;
+            _messageBoxProvider = messageBoxProvider;
             Item = store.SelectedTest;
             _result = new TestResult
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = _guidProvider.NewGuid(),
                 TestId = Item.Id,
                 StudentId = authStore.CurrentUser.Id,
                 MaxScore = Item.Questions.Sum(q => q.Score),
-                StartDateTime = DateTime.Now,
+                StartDateTime = _momentProvider.Now,
                 TeacherId = Item.TeacherId
             };
             SaveCommand = new DelegateCommand(Save);
@@ -49,8 +56,9 @@ namespace EducationTesting.Client.ViewModels
             {
                 return;
             }
+
             // Запрос подтверждения завершения теста
-            var confirmation = MessageBox.Show(
+            var confirmation = _messageBoxProvider.Show(
                 "Вы уверены, что хотите завершить тест? Это действие нельзя отменить.",
                 "Подтверждение завершения",
                 MessageBoxButton.YesNo,
@@ -60,6 +68,7 @@ namespace EducationTesting.Client.ViewModels
             {
                 return;
             }
+
             // Обработка выбранных опций
             foreach (var question in Item.Questions)
             {
@@ -71,8 +80,9 @@ namespace EducationTesting.Client.ViewModels
                     }
                 }
             }
+
             // Установка времени завершения теста
-            _result.EndDateTime = DateTime.Now;
+            _result.EndDateTime = _momentProvider.Now;
 
             // Создание результата теста
             _resultsService.Create(_result);
@@ -81,7 +91,7 @@ namespace EducationTesting.Client.ViewModels
             _navStore.CurrentVmProp.Value = _testsVmLazy.Value;
 
             // Сообщение об успешном завершении
-            MessageBox.Show(
+            _messageBoxProvider.Show(
                 "Тест успешно завершен!",
                 "Успех",
                 MessageBoxButton.OK,
@@ -94,7 +104,7 @@ namespace EducationTesting.Client.ViewModels
         {
             _result.Answers = _result.Answers.Append(new StudentAnswer
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = _guidProvider.NewGuid(),
                 AnswerOptionId = item.Id,
                 QuestionId = item.QuestionId,
                 TestResultId = _result.Id,

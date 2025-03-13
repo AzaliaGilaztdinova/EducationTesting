@@ -16,6 +16,7 @@ namespace EducationTesting.Client.ViewModels
         private readonly IClassesService _service;
         private readonly IMainLayoutNavStore _mainLayoutNavStore;
         private readonly Lazy<ClassesVm> _classesVmLazy;
+        private readonly IGuidProvider _guidProvider;
         private string _searchText;
 
         public string SearchText
@@ -37,11 +38,12 @@ namespace EducationTesting.Client.ViewModels
         public ICommand GoToCommand { get; }
         public ICommand DeleteCommand { get; }
 
-        public ClassesVm(IClassesService service, IMainLayoutNavStore mainLayoutNavStore, Lazy<ClassesVm> classesVmLazy)
+        public ClassesVm(IClassesService service, IMainLayoutNavStore mainLayoutNavStore, Lazy<ClassesVm> classesVmLazy, IGuidProvider guidProvider)
         {
             _service = service;
             _mainLayoutNavStore = mainLayoutNavStore;
             _classesVmLazy = classesVmLazy;
+            _guidProvider = guidProvider;
             AddCommand = new DelegateCommand(Add);
             GoToCommand = new DelegateCommand<string>(GoTo);
             DeleteCommand = new DelegateCommand<Class>(Delete);
@@ -55,7 +57,7 @@ namespace EducationTesting.Client.ViewModels
         {
             _mainLayoutNavStore.CurrentVmProp.Value = _classesVmLazy.Value;
             RaisePropertyChanged(nameof(Classes));
-        });
+        }, _guidProvider);
 
         private void GoTo(string id)
         {
@@ -67,7 +69,7 @@ namespace EducationTesting.Client.ViewModels
                 {
                     _mainLayoutNavStore.CurrentVmProp.Value = _classesVmLazy.Value;
                     RaisePropertyChanged(nameof(Classes));
-                });
+                }, _guidProvider);
         }
 
         private void Delete(Class item)

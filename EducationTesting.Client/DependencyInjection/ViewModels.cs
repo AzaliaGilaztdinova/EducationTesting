@@ -21,10 +21,10 @@ namespace EducationTesting.Client.DependencyInjection
                 .AddTransient<ProfileVm>()
                 .AddTransient<StudentsVm>()
                 .AddTransient<SubjectsVm>()
-                .AddTransient<TestsVm>()
+                .AddTransient<ITestsVm, TestsVm>()
                 .AddTransient<DisciplinesVm>()
                 .AddTransient<TeachersVm>()
-                .AddTransient<TestPerformVm>()
+                .AddTransient<ITestPerformVm, TestPerformVm>()
                 .AddTransient<TestResultsVm>()
                 .AddTransient<ClassesVm>();
     }

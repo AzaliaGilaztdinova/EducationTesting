@@ -10,14 +10,18 @@ namespace EducationTesting.Client.ViewModels
     public class EditTeacherVm : EditItemVm<Teacher>
     {
         private readonly ITeachersService _service;
+        private readonly IGuidProvider _guidProvider;
 
         public PasswordBox PasswordBox { get; } = new PasswordBox();
 
         public bool IsNew => Item.Id is null;
 
-        public EditTeacherVm(Teacher item, ITeachersService service, Action goBack) :
-            base(item, goBack) =>
+        public EditTeacherVm(Teacher item, ITeachersService service, Action goBack, IGuidProvider guidProvider) :
+            base(item, goBack)
+        {
             _service = service;
+            _guidProvider = guidProvider;
+        }
 
         protected override void Save()
         {
@@ -32,7 +36,7 @@ namespace EducationTesting.Client.ViewModels
                 {
                     var command = new CreateTeacherCommand()
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = _guidProvider.NewGuid(),
                         Login = Item.Login,
                         Password = PasswordBox.Password,
                         FirstName = Item.FirstName,

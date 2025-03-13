@@ -13,17 +13,19 @@ namespace EducationTesting.Client.ViewModels
     {
         private readonly IStudentsService _service;
         private readonly IClassesService _classesService;
+        private readonly IGuidProvider _guidProvider;
 
         public PasswordBox PasswordBox { get; } = new PasswordBox();
 
         public IEnumerable<Class> Classes => _classesService.GetList();
         public bool IsNew => Item.Id is null;
 
-        public EditStudentVm(Student item, IStudentsService service, IClassesService classesService, Action goBack) :
+        public EditStudentVm(Student item, IStudentsService service, IClassesService classesService, Action goBack, IGuidProvider guidProvider) :
             base(item, goBack)
         {
             _service = service;
             _classesService = classesService;
+            _guidProvider = guidProvider;
         }
 
         protected override void Save()
@@ -38,7 +40,7 @@ namespace EducationTesting.Client.ViewModels
                 {
                     var command = new CreateStudentCommand
                     {
-                        Id = Guid.NewGuid().ToString(),
+                        Id = _guidProvider.NewGuid(),
                         Login = Item.Login,
                         Password = PasswordBox.Password,
                         FirstName = Item.FirstName,

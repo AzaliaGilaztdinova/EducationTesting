@@ -8,10 +8,14 @@ namespace EducationTesting.Client.ViewModels
     public class EditDisciplineVm : EditItemVm<Discipline>
     {
         private readonly IDisciplinesService _service;
+        private readonly IGuidProvider _guidProvider;
 
-        public EditDisciplineVm(Discipline item, IDisciplinesService service, Action goBack) :
-            base(item, goBack) =>
+        public EditDisciplineVm(Discipline item, IDisciplinesService service, Action goBack, IGuidProvider guidProvider) :
+            base(item, goBack)
+        {
             _service = service;
+            _guidProvider = guidProvider;
+        }
 
         protected override void Save()
         {
@@ -23,7 +27,7 @@ namespace EducationTesting.Client.ViewModels
 
                 if (isNew)
                 {
-                    Item.Id = Guid.NewGuid().ToString();
+                    Item.Id = _guidProvider.NewGuid();
                     _service.Create(Item);
                     MessageBox.Show("Предмет успешно создан!", "Успех",
                         MessageBoxButton.OK, MessageBoxImage.Information);
