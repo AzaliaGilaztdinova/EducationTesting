@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="EducationTesting.Client.Views.TestResultView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:EducationTesting.Client.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance viewModels:TestResultVm}">
+    <ScrollViewer>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Название" Grid.Row="0" Grid.Column="0" />
+            <TextBlock Text="{Binding Test.Name}" HorizontalAlignment="Left" MaxWidth="400px"
+                       Grid.Row="0" Grid.Column="1" />
+
+            <Label Content="Описание" Grid.Row="1" Grid.Column="0" />
+            <TextBlock Text="{Binding Test.Description}" HorizontalAlignment="Left" MaxWidth="400px"
+                       TextWrapping="Wrap"
+                       Grid.Row="1"
+                       Grid.Column="1" />
+
+            <Label Content="Учитель" Grid.Row="2" Grid.Column="0" />
+            <TextBlock Text="{Binding Test.TeacherFullName}" HorizontalAlignment="Left"
+                       MaxWidth="400px"
+                       TextWrapping="WrapWithOverflow"
+                       Grid.Row="2"
+                       Grid.Column="1" />
+
+            <Label Content="Длительность теста (Минут)" Grid.Row="3" Grid.Column="0" />
+            <TextBlock Text="{Binding Test.Duration}" Grid.Row="3" Grid.Column="1" />
+
+            <Label Content="Время выполнения" Grid.Row="4" Grid.Column="0" />
+            <TextBlock Grid.Row="4" Grid.Column="1">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}:{1}:{2}">
+                        <Binding Path="TestResult.Duration.Hours" />
+                        <Binding Path="TestResult.Duration.Minutes" />
+                        <Binding Path="TestResult.Duration.Seconds" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+
+            <Label Content="Оценка" Grid.Row="5" Grid.Column="0" />
+            <TextBlock Grid.Row="5" Grid.Column="1">
+                <TextBlock Visibility="{Binding TestResult.InTime, Converter={StaticResource BooleanToVisibility}}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} ({1}%)">
+                            <Binding Path="TestResult.Grade" />
+                            <Binding Path="TestResult.Percentage" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Text="Превышено время"
+                           Visibility="{Binding TestResult.InTime, Converter={StaticResource InvertedBooleanToVisibility}}" />
+            </TextBlock>
+
+            <Label Content="Ответы:" Grid.Row="6" Grid.Column="0" />
+            <ItemsControl ItemsSource="{Binding AnsweredQuestions}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                          ItemTemplateSelector="{StaticResource AnsweredOptionTemplateSelector}" />
+
+            <Button Content="Назад" Command="{Binding GoBackCommand}" Width="150" Height="30" Grid.Row="8" Grid.Column="1"
+                    HorizontalAlignment="Left" />
+        </Grid>
+    </ScrollViewer>
+</UserControl>

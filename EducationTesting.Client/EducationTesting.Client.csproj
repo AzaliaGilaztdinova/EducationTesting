@@ -1,0 +1,457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props" Condition="Exists('..\packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.props" Condition="Exists('..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.props')" />
+  <Import Project="..\packages\Microsoft.Testing.Platform.1.5.3\build\netstandard2.0\Microsoft.Testing.Platform.props" Condition="Exists('..\packages\Microsoft.Testing.Platform.1.5.3\build\netstandard2.0\Microsoft.Testing.Platform.props')" />
+  <Import Project="..\packages\NUnit.4.3.2\build\NUnit.props" Condition="Exists('..\packages\NUnit.4.3.2\build\NUnit.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA23F6DC-FDDF-4BA8-BCBA-B6FA46E70342}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EducationTesting.Client</RootNamespace>
+    <AssemblyName>EducationTesting.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.1.66\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.22.0.997, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.22.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.2\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Sqlite, Version=5.0.17.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Sqlite.Core.5.0.17\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=9.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.9.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.MSBuild, Version=1.5.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\lib\netstandard2.0\Microsoft.Testing.Extensions.MSBuild.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.Telemetry, Version=1.5.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\lib\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.TrxReport.Abstractions, Version=1.5.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.TrxReport.Abstractions.1.5.3\lib\netstandard2.0\Microsoft.Testing.Extensions.TrxReport.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Extensions.VSTestBridge, Version=1.5.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Extensions.VSTestBridge.1.5.3\lib\netstandard2.0\Microsoft.Testing.Extensions.VSTestBridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Testing.Platform, Version=1.5.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Testing.Platform.1.5.3\lib\netstandard2.0\Microsoft.Testing.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.12.0\lib\net462\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.12.0\lib\net462\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.DesignTools.Extensibility">
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.DesignTools.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.12.0\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Design.Extensibility">
+      <HintPath>..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\PublicAssemblies\Microsoft.Windows.Design.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.122\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors.Design, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.122\lib\net462\Design\Microsoft.Xaml.Behaviors.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors.DesignTools, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.122\lib\net462\Design\Microsoft.Xaml.Behaviors.DesignTools.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="nunit.framework, Version=4.3.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.4.3.2\lib\net462\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework.legacy, Version=4.3.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.4.3.2\lib\net462\nunit.framework.legacy.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism, Version=9.0.537.60525, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.9.0.537\lib\net47\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Container.Abstractions, Version=9.0.106.9543, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Container.Abstractions.9.0.106\lib\net47\Prism.Container.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Events, Version=9.0.537.60525, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Events.9.0.537\lib\net47\Prism.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=9.0.537.60525, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.9.0.537\lib\net47\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.0.4.976, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.4\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.0.4.976, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.core.2.0.4\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.nativelibrary, Version=2.0.4.976, Culture=neutral, PublicKeyToken=502ed628492ab262, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.bundle_e_sqlite3.2.0.4\lib\net461\SQLitePCLRaw.nativelibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl, Version=2.0.4.976, Culture=neutral, PublicKeyToken=b68184102cba0b3b, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLitePCLRaw.provider.dynamic_cdecl.2.0.4\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database\DbConnectionProvider.cs" />
+    <Compile Include="Database\IDbConnectionProvider.cs" />
+    <Compile Include="DependencyInjection\Repositories.cs" />
+    <Compile Include="DependencyInjection\Services.cs" />
+    <Compile Include="DependencyInjection\Stores.cs" />
+    <Compile Include="DependencyInjection\ViewModels.cs" />
+    <Compile Include="Helpers\AnsweredOptionTemplateSelector.cs" />
+    <Compile Include="Helpers\AnswerOptionTemplateSelector.cs" />
+    <Compile Include="Helpers\InvertedBooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Lazier.cs" />
+    <Compile Include="Helpers\Property.cs" />
+    <Compile Include="Helpers\QuestionsTypesStrings.cs" />
+    <Compile Include="Helpers\QuestionTemplateSelector.cs" />
+    <Compile Include="Helpers\QuestionTypeToStringConverter.cs" />
+    <Compile Include="Helpers\RolesString.cs" />
+    <Compile Include="Helpers\RoleToVisibilityConverter.cs" />
+    <Compile Include="Helpers\StringToVisibilityConverter.cs" />
+    <Compile Include="Models\Classes\Class.cs" />
+    <Compile Include="Models\Disciplines\Discipline.cs" />
+    <Compile Include="Models\Lectures\Lecture.cs" />
+    <Compile Include="Models\Lectures\LectureLink.cs" />
+    <Compile Include="Models\PracticalTasks\PracticalTask.cs" />
+    <Compile Include="Models\PracticalTasks\PracticalTaskAnswer.cs" />
+    <Compile Include="Models\Students\CreateStudentCommand.cs" />
+    <Compile Include="Models\Students\Student.cs" />
+    <Compile Include="Models\Subjects\Subject.cs" />
+    <Compile Include="Models\Teachers\CreateTeacherCommand.cs" />
+    <Compile Include="Models\Teachers\Teacher.cs" />
+    <Compile Include="Models\Tests\AnsweredQuestion.cs" />
+    <Compile Include="Models\Tests\AnswerOption.cs" />
+    <Compile Include="Models\Tests\Question.cs" />
+    <Compile Include="Models\Tests\QuestionType.cs" />
+    <Compile Include="Models\Tests\StudentAnswer.cs" />
+    <Compile Include="Models\Tests\Test.cs" />
+    <Compile Include="Models\Tests\TestResult.cs" />
+    <Compile Include="Models\Users\AuthUserCommand.cs" />
+    <Compile Include="Models\Users\Roles.cs" />
+    <Compile Include="Models\Users\UpdatePasswordCommand.cs" />
+    <Compile Include="Models\Users\User.cs" />
+    <Compile Include="Models\Users\ValidateOldPasswordCommand.cs" />
+    <Compile Include="Repositories\ClassesRepository.cs" />
+    <Compile Include="Repositories\DisciplinesRepository.cs" />
+    <Compile Include="Repositories\IClassesRepository.cs" />
+    <Compile Include="Repositories\IDisciplinesRepository.cs" />
+    <Compile Include="Repositories\ILecturesRepository.cs" />
+    <Compile Include="Repositories\IPracticalTasksRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IStudentsRepository.cs" />
+    <Compile Include="Repositories\ISubjectsRepository.cs" />
+    <Compile Include="Repositories\ITeachersRepository.cs" />
+    <Compile Include="Repositories\ITestsRepository.cs" />
+    <Compile Include="Repositories\ITestsResultsRepository.cs" />
+    <Compile Include="Repositories\IUsersRepository.cs" />
+    <Compile Include="Repositories\StudentsRepository.cs" />
+    <Compile Include="Repositories\SubjectsRepository.cs" />
+    <Compile Include="Repositories\TeachersRepository.cs" />
+    <Compile Include="Repositories\TestsRepository.cs" />
+    <Compile Include="Repositories\TestsResultsRepository.cs" />
+    <Compile Include="Repositories\UsersRepository.cs" />
+    <Compile Include="Services\ClassesService.cs" />
+    <Compile Include="Services\DisciplinesService.cs" />
+    <Compile Include="Services\IClassesService.cs" />
+    <Compile Include="Services\IDisciplinesService.cs" />
+    <Compile Include="Services\IModelService.cs" />
+    <Compile Include="Services\IStudentsService.cs" />
+    <Compile Include="Services\ISubjectsService.cs" />
+    <Compile Include="Services\ITeachersService.cs" />
+    <Compile Include="Services\ITestsResultsService.cs" />
+    <Compile Include="Services\ITestsService.cs" />
+    <Compile Include="Services\IUsersService.cs" />
+    <Compile Include="Services\StudentsService.cs" />
+    <Compile Include="Services\SubjectsService.cs" />
+    <Compile Include="Services\TeachersService.cs" />
+    <Compile Include="Services\TestsResultsService.cs" />
+    <Compile Include="Services\TestsService.cs" />
+    <Compile Include="Services\UsersService.cs" />
+    <Compile Include="Stores\AuthStore.cs" />
+    <Compile Include="Stores\IAuthStore.cs" />
+    <Compile Include="Stores\IMainLayoutNavStore.cs" />
+    <Compile Include="Stores\IMainNavStore.cs" />
+    <Compile Include="Stores\ISubjectsStore.cs" />
+    <Compile Include="Stores\ITestsStore.cs" />
+    <Compile Include="Stores\MainLayoutNavStore.cs" />
+    <Compile Include="Stores\MainNavStore.cs" />
+    <Compile Include="Stores\SubjectsStore.cs" />
+    <Compile Include="Stores\TestsStore.cs" />
+    <Compile Include="ViewModels\ClassesVm.cs" />
+    <Compile Include="ViewModels\ConfirmationVm.cs" />
+    <Compile Include="ViewModels\DisciplinesVm.cs" />
+    <Compile Include="ViewModels\EditClassVm.cs" />
+    <Compile Include="ViewModels\EditDisciplineVm.cs" />
+    <Compile Include="ViewModels\EditItemVm.cs" />
+    <Compile Include="ViewModels\EditLectureVm.cs" />
+    <Compile Include="ViewModels\EditPracticalTaskVm.cs" />
+    <Compile Include="ViewModels\EditStudentVm.cs" />
+    <Compile Include="ViewModels\EditSubjectVm.cs" />
+    <Compile Include="ViewModels\EditTeacherVm.cs" />
+    <Compile Include="ViewModels\EditTestVm.cs" />
+    <Compile Include="ViewModels\LecturesVm.cs" />
+    <Compile Include="ViewModels\LoginVm.cs" />
+    <Compile Include="ViewModels\MainLayoutVm.cs" />
+    <Compile Include="ViewModels\MainVm.cs" />
+    <Compile Include="ViewModels\Pages.cs" />
+    <Compile Include="ViewModels\PracticalTasksVm.cs" />
+    <Compile Include="ViewModels\ProfileVm.cs" />
+    <Compile Include="ViewModels\StudentsVm.cs" />
+    <Compile Include="ViewModels\SubjectsVm.cs" />
+    <Compile Include="ViewModels\TeachersVm.cs" />
+    <Compile Include="ViewModels\TestResultsVm.cs" />
+    <Compile Include="ViewModels\TestResultVm.cs" />
+    <Compile Include="ViewModels\TestsVm.cs" />
+    <Compile Include="ViewModels\TestPerformVm.cs" />
+    <Compile Include="Views\ClassesView.xaml.cs">
+      <DependentUpon>ClassesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfirmationView.xaml.cs">
+      <DependentUpon>ConfirmationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisciplinesView.xaml.cs">
+      <DependentUpon>DisciplinesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditClassView.xaml.cs">
+      <DependentUpon>EditClassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditDisciplineView.xaml.cs">
+      <DependentUpon>EditDisciplineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditLectureView.xaml.cs">
+      <DependentUpon>EditLectureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditPracticalTaskView.xaml.cs">
+      <DependentUpon>EditPracticalTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditStudentView.xaml.cs">
+      <DependentUpon>EditStudentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditSubjectView.xaml.cs">
+      <DependentUpon>EditSubjectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTeacherView.xaml.cs">
+      <DependentUpon>EditTeacherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTestView.xaml.cs">
+      <DependentUpon>EditTestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LecturesView.xaml.cs">
+      <DependentUpon>LecturesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainLayoutView.xaml.cs">
+      <DependentUpon>MainLayoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\PracticalTasksView.xaml.cs">
+      <DependentUpon>PracticalTasksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProfileView.xaml.cs">
+      <DependentUpon>ProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StudentsView.xaml.cs">
+      <DependentUpon>StudentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SubjectsView.xaml.cs">
+      <DependentUpon>SubjectsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TeachersView.xaml.cs">
+      <DependentUpon>TeachersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestPerformView.xaml.cs">
+      <DependentUpon>TestPerformView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestResultsView.xaml.cs">
+      <DependentUpon>TestResultsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestResultView.xaml.cs">
+      <DependentUpon>TestResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestsView.xaml.cs">
+      <DependentUpon>TestsView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\ClassesView.xaml" />
+    <Page Include="Views\Components\AnsweredManyOptionsTemplate.xaml" />
+    <Page Include="Views\Components\AnsweredOptionTemplateSelector.xaml" />
+    <Page Include="Views\Components\AnsweredSingleOptionTemplate.xaml" />
+    <Page Include="Views\Components\AnswerOptionTemplateSelector.xaml" />
+    <Page Include="Views\Components\BooleanToVisibility.xaml" />
+    <Page Include="Views\Components\ManyOptionsQuestionTemplate.xaml" />
+    <Page Include="Views\Components\ManyOptionsTemplate.xaml" />
+    <Page Include="Views\Components\QuestionTemplateSelector.xaml" />
+    <Page Include="Views\Components\QuestionTypeToStringConverter.xaml" />
+    <Page Include="Views\Components\SingleOptionQuestionTemplate.xaml" />
+    <Page Include="Views\Components\RoleToVisibilityConverter.xaml" />
+    <Page Include="Views\Components\SingleOptionTemplate.xaml" />
+    <Page Include="Views\ConfirmationView.xaml" />
+    <Page Include="Views\DisciplinesView.xaml" />
+    <Page Include="Views\EditClassView.xaml" />
+    <Page Include="Views\EditDisciplineView.xaml" />
+    <Page Include="Views\EditLectureView.xaml" />
+    <Page Include="Views\EditPracticalTaskView.xaml" />
+    <Page Include="Views\EditStudentView.xaml" />
+    <Page Include="Views\EditSubjectView.xaml" />
+    <Page Include="Views\EditTeacherView.xaml" />
+    <Page Include="Views\EditTestView.xaml" />
+    <Page Include="Views\LecturesView.xaml" />
+    <Page Include="Views\LoginView.xaml" />
+    <Page Include="Views\MainLayoutView.xaml" />
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PracticalTasksView.xaml" />
+    <Page Include="Views\ProfileView.xaml" />
+    <Page Include="Views\StudentsView.xaml" />
+    <Page Include="Views\SubjectsView.xaml" />
+    <Page Include="Views\TeachersView.xaml" />
+    <Page Include="Views\TestPerformView.xaml" />
+    <Page Include="Views\TestResultsView.xaml" />
+    <Page Include="Views\TestResultView.xaml" />
+    <Page Include="Views\TestsView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docker-compose.yml" />
+    <Content Include="EducationTesting.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="e_sqlite3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQL.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLitePCLRaw.lib.e_sqlite3.2.0.4\build\net461\SQLitePCLRaw.lib.e_sqlite3.targets'))" />
+    <Error Condition="!Exists('..\packages\NUnit.4.3.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.4.3.2\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.1.5.3\build\netstandard2.0\Microsoft.Testing.Platform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.1.5.3\build\netstandard2.0\Microsoft.Testing.Platform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('..\packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets')" />
+  <Import Project="..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets" Condition="Exists('..\packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets')" />
+</Project>

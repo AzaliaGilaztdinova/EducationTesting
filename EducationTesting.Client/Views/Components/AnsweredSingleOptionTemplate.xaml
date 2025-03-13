@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tests="clr-namespace:EducationTesting.Client.Models.Tests">
+    <DataTemplate DataType="{x:Type tests:AnsweredQuestion}" x:Key="AnsweredSingleOptionTemplate">
+        <StackPanel>
+            <TextBlock Text="{Binding Question.Text}" />
+            <ItemsControl ItemsSource="{Binding Question.Options}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Content="{Binding Text}"
+                                         IsChecked="{Binding IsSelected}"
+                                         GroupName="{Binding QuestionId}"
+                                         Margin="5,2"
+                                         IsEnabled="False" />
+                            <TextBlock
+                                Visibility="{Binding IsSelected, Converter={StaticResource BooleanToVisibility}}">
+                                <TextBlock Text="Верно"
+                                           Visibility="{Binding IsCorrect, Converter={StaticResource BooleanToVisibility}}" />
+                                <TextBlock Text="Не верно"
+                                           Visibility="{Binding IsCorrect, Converter={StaticResource InvertedBooleanToVisibility}}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

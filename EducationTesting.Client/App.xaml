@@ -1,0 +1,251 @@
+﻿<Application x:Class="EducationTesting.Client.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:helpers="clr-namespace:EducationTesting.Client.Helpers">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Views/Components/BooleanToVisibility.xaml" />
+                <ResourceDictionary Source="Views/Components/RoleToVisibilityConverter.xaml" />
+                <ResourceDictionary Source="Views/Components/QuestionTypeToStringConverter.xaml" />
+                <ResourceDictionary Source="Views/Components/SingleOptionTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/ManyOptionsTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/AnswerOptionTemplateSelector.xaml" />
+                <ResourceDictionary Source="Views/Components/SingleOptionQuestionTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/ManyOptionsQuestionTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/QuestionTemplateSelector.xaml" />
+                <ResourceDictionary Source="Views/Components/AnsweredSingleOptionTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/AnsweredManyOptionsTemplate.xaml" />
+                <ResourceDictionary Source="Views/Components/AnsweredOptionTemplateSelector.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Эффект тени -->
+            <DropShadowEffect x:Key="ShadowEffect" 
+          BlurRadius="15" 
+          ShadowDepth="3" 
+          Opacity="0.1"/>
+
+            <!-- Конвертер для инвертирования видимости -->
+            <helpers:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibility"/>
+            <helpers:StringToVisibilityConverter x:Key="StringToVisibility"/>
+            <!-- Цветовая схема -->
+            <SolidColorBrush x:Key="PrimaryColor">#2C3E50</SolidColorBrush>
+            <SolidColorBrush x:Key="SecondaryColor" Color="#FF8BC34A"/>
+            <SolidColorBrush x:Key="AccentColor">#27AE60</SolidColorBrush>
+
+            <!-- Стили текста -->
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="0 0 10 5"/>
+            </Style>
+
+            <!-- Стиль для TextBox -->
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="#ECF0F1"/>
+                <Setter Property="BorderBrush" Value="#BDC3C7"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="Margin" Value="0 0 0 15"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource SecondaryColor}"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Стиль для кнопки -->
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource SecondaryColor}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="20 10"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center"
+                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#388E3C"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!-- Стили для кнопок -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#FF8BC34A"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+              CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="10,5"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#388E3C"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="EditButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Background" Value="#27AE60"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+              CornerRadius="20">
+                                <Path Data="M12 4.44L19.56 12 12 19.56 10.23 17.77 16 12 10.23 6.23 12 4.44M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"
+                  Fill="White"
+                  Stretch="Uniform"
+                  Margin="10"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#388E3C"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="DeleteButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="40"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Background" Value="#E74C3C"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+              CornerRadius="20">
+                                <Path Data="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+                  Fill="White"
+                  Stretch="Uniform"
+                  Margin="10"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#C0392B"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!-- Стили для формы -->
+            <Style x:Key="InputLabelStyle" TargetType="Label">
+                <Setter Property="Margin" Value="0,0,15,8"/>
+                <Setter Property="Foreground" Value="#424242"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="PasswordInputStyle" TargetType="ContentControl">
+                <Setter Property="Margin" Value="0,0,0,8"/>
+                <Setter Property="Width" Value="250"/>
+            </Style>
+
+            <Style x:Key="ErrorMessageStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#D32F2F"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Margin" Value="0,10"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+
+            <Style x:Key="SuccessMessageStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#388E3C"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,10"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+            <Style x:Key="FormTextBoxStyle" TargetType="TextBox">
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="44"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+            <Style x:Key="FormComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="Height" Value="44"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Margin" Value="0,0,0,15"/>
+            </Style>
+
+            <DataTemplate x:Key="QuestionTypeTemplate">
+                <TextBlock Text="{Binding Converter={StaticResource QuestionTypeToStringConverter}}"
+       FontSize="16"/>
+            </DataTemplate>
+
+            <Style x:Key="ModernButtonBase" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border 
+                        Background="{TemplateBinding Background}" 
+                        CornerRadius="4">
+                                <ContentPresenter 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Padding" Value="15 5"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Width" Value="120"/>
+                <Setter Property="Height" Value="40"/>
+            </Style>
+
+            <!-- Зеленая кнопка "Сохранить" -->
+            <Style x:Key="ModernGreenButton" BasedOn="{StaticResource ModernButtonBase}" TargetType="Button">
+                <Setter Property="Background" Value="#4CAF50"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#45a049"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Красная кнопка "Отмена" -->
+            <Style x:Key="ModernRedButton" BasedOn="{StaticResource ModernButtonBase}" TargetType="Button">
+                <Setter Property="Background" Value="#f44336"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#da190b"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
